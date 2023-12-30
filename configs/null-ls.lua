@@ -11,8 +11,13 @@ local sources = {
   -- Lua
   b.formatting.stylua,
 
+  b.formatting.black.with { filetypes = { "python" } },
+
   -- cpp
-  b.formatting.clang_format,
+  b.formatting.clang_format.with{
+    filetypes = { "cpp", "c", "cuda", "objc", "objcpp" },
+    extra_args = { "-assume-filename=$FILENAME" },
+  },
 }
 
 null_ls.setup {

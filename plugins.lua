@@ -1,10 +1,9 @@
-local overrides = require("custom.configs.overrides")
+local overrides = require "custom.configs.overrides"
 
 ---@type NvPluginSpec[]
 local plugins = {
 
   -- Override plugin definition options
-
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -15,17 +14,38 @@ local plugins = {
           require "custom.configs.null-ls"
         end,
       },
+      {
+        "SmiteshP/nvim-navbuddy",
+        dependencies = {
+          "SmiteshP/nvim-navic",
+          "MunifTanjim/nui.nvim",
+        },
+        opts = { lsp = { auto_attach = true } },
+      },
     },
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
     end, -- Override to setup mason-lspconfig
   },
-
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {},
+  -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
   -- override plugin configs
   {
     "williamboman/mason.nvim",
-    opts = overrides.mason
+    opts = overrides.mason,
   },
 
   {
@@ -46,20 +66,56 @@ local plugins = {
       require("better_escape").setup()
     end,
   },
+  {
+    "ThePrimeagen/harpoon",
+  },
+  {
+    "mfussenegger/nvim-jdtls",
+  },
+  {
+    "mfussenegger/nvim-dap",
+  },
+  {
+    "hrsh7th/nvim-cmp",
 
+    dependencies = {
+      "zbirenbaum/copilot.lua",
+      event = "InsertEnter",
+      config = function()
+        require("copilot").setup {
+          suggestion = { enabled = false },
+          panel = { enabled = false },
+        }
+      end,
+
+      dependencies = {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+          require("copilot_cmp").setup()
+        end,
+      },
+    },
+    opts = overrides.nvimcmp,
+  },
+  {
+    "mrcjkb/haskell-tools.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim", -- optional
+    },
+    branch = "1.x.x", -- recommended
+  },
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
   --   enabled = false
   -- },
 
-  -- All NvChad plugins are lazy-loaded by default
-  -- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
-  -- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
+  -- Uncomment if you want to re-enable which-key
   -- {
-  --   "mg979/vim-visual-multi",
-  --   lazy = false,
-  -- }
+  --   "folke/which-key.nvim",
+  --   enabled = true,
+  -- },
 }
 
 return plugins

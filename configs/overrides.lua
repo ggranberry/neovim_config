@@ -7,17 +7,12 @@ M.treesitter = {
     "html",
     "css",
     "javascript",
-    "typescript",
-    "tsx",
     "c",
     "markdown",
     "markdown_inline",
   },
   indent = {
     enable = true,
-    -- disable = {
-    --   "python"
-    -- },
   },
 }
 
@@ -32,11 +27,7 @@ M.mason = {
     "html-lsp",
     "typescript-language-server",
     "deno",
-    "prettier",
-
-    -- c/cpp stuff
-    "clangd",
-    "clang-format",
+    "prettier"
   },
 }
 
@@ -44,6 +35,7 @@ M.mason = {
 M.nvimtree = {
   git = {
     enable = true,
+    ignore = false,
   },
 
   renderer = {
@@ -53,6 +45,17 @@ M.nvimtree = {
         git = true,
       },
     },
+  },
+}
+
+M.nvimcmp = {
+  sources = {
+    { name = "luasnip" },
+    { name = "nvim_lsp" },
+    { name = "buffer" },
+    { name = "nvim_lua" },
+    { name = "path" },
+    { name = "copilot" }
   },
 }
 
