@@ -5,6 +5,67 @@ M.general = {
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
     ["<D-k>"] = { "<Nop>", "Don't let me delete scrollback" },
+    ["<leader>jr"] = {
+      function()
+        require("dap").repl.open()
+      end,
+      "open jdtls repl",
+    },
+    ["<F5>"] = {
+      function()
+        require("dap").continue()
+      end,
+      "debug continue",
+    },
+    ["<F7>"] = {
+      function()
+        require("dap").step_over()
+      end,
+      "debug step over",
+    },
+    ["<F8>"] = {
+      function()
+        require("dap").step_into()
+      end,
+      "debug step into",
+    },
+    ["<F9>"] = {
+      function()
+        require("dap").step_out()
+      end,
+      "debug step out",
+    },
+    ["<Leader>jb"] = {
+      function()
+        require("dap").toggle_breakpoint()
+      end,
+      "debug toggle break",
+    },
+    ["<Leader>jB"] = {
+      function()
+        require("dap").set_breakpoint()
+      end,
+      "debug set break",
+    },
+    ["<Leader>jh"] = {
+      function()
+        require("dap.ui.widgets").hover()
+      end,
+      "debug hover",
+    },
+    ["<Leader>jp"] = {
+      function()
+        require("dap.ui.widgets").preview()
+      end,
+      "debug preview",
+    },
+  },
+
+  i = {
+    ["<D-k>"] = { "<Nop>", "Don't let me delete scrollback" },
+  },
+  v = {
+    ["<D-k>"] = { "<Nop>", "Don't let me delete scrollback" },
   },
 
   t = {
@@ -63,6 +124,23 @@ M.lspconfig = {
   },
 }
 
+M.nvimdappython = {
+  n = {
+    ["<leader>pd"] = {
+      function()
+        require("dap-python").test_method()
+      end,
+      "test method",
+    },
+    ["<leader>dc"] = {
+      function()
+        require("dap-python").test_class()
+      end,
+      "test class",
+    },
+  },
+}
+
 M.jdtls = {
   n = {
     ["<leader>jd"] = {
@@ -76,60 +154,6 @@ M.jdtls = {
         require("jdtls").test_nearest_method()
       end,
       "test nearest method",
-    },
-    ["<leader>jr"] = {
-      function()
-        require("dap").repl.open()
-      end,
-      "open jdtls repl",
-    },
-    ["<F5>"] = {
-      function()
-        require("dap").continue()
-      end,
-      "debug continue",
-    },
-    ["<F7>"] = {
-      function()
-        require("dap").step_over()
-      end,
-      "debug step over",
-    },
-    ["<F8>"] = {
-      function()
-        require("dap").step_into()
-      end,
-      "debug step into",
-    },
-    ["<F9>"] = {
-      function()
-        require("dap").step_out()
-      end,
-      "debug step out",
-    },
-    ["<Leader>jb"] = {
-      function()
-        require("dap").toggle_breakpoint()
-      end,
-      "debug toggle break",
-    },
-    ["<Leader>jB"] = {
-      function()
-        require("dap").set_breakpoint()
-      end,
-      "debug set break",
-    },
-    ["<Leader>jh"] = {
-      function()
-        require("dap.ui.widgets").hover()
-      end,
-      "debug hover",
-    },
-    ["<Leader>jp"] = {
-      function()
-        require("dap.ui.widgets").preview()
-      end,
-      "debug preview",
     },
   },
 }
